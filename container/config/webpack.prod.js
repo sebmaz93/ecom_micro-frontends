@@ -9,7 +9,7 @@ const prodConfig = {
   mode: 'production',
   output: {
     filename: '[name].[contenthash].js',
-    publicPath: '/ecomm-mfe/container/latest/',
+    publicPath: '/ecomm-mfe/',
   },
   plugins: [
     new ModuleFederationPlugin({
