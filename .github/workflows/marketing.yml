@@ -1,14 +1,14 @@
-name: deploy-container
+name: deploy-marketing
 
 on:
   push:
     branches: [main]
     paths:
-      - 'container/**'
+      - 'marketing/**'
 
 defaults:
   run:
-    working-directory: container
+    working-directory: marketing
 
 jobs:
   build:
@@ -37,8 +37,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          PROD_DOMAIN: ${{ secrets.PROD_DOMAIN }}
 
       - name: list folders
         run: "ls"
@@ -50,4 +48,4 @@ jobs:
           export_default_credentials: true
 
       - name: Deploy
-        run: gsutil -m rsync -r dist gs://${{ secrets.GCS_BUCKET }}/container/latest
+        run: gsutil -m rsync -r dist gs://${{ secrets.GCS_BUCKET }}/marketing/latest
