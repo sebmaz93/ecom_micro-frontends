@@ -23,6 +23,4 @@ const prodConfig = {
   ],
 }
 
-console.log('PROC', process.env)
-
 module.exports = merge(commonConfig, prodConfig)
