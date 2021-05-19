@@ -42,4 +42,4 @@ jobs:
           export_default_credentials: true
 
       - name: Deploy
-        run: gsutil -m rsync -r dist gs://${{ secrets.GCS_BUCKET }}/container/latest
+        run: gsutil -m rsync -r dist/ gs://${{ secrets.GCS_BUCKET }}/container/latest
