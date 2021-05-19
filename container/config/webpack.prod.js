@@ -4,7 +4,7 @@ const commonConfig = require('./webpack.common')
 const packageJson = require('../package.json')
 
 // const domain = process.env.PROD_DOMAIN
-const domain = 'https://storage.googleapis.com/ecomm-mfe'
+// const domain = 'https://storage.googleapis.com/ecomm-mfe'
 
 const prodConfig = {
   mode: 'production',
@@ -16,11 +16,13 @@ const prodConfig = {
     new ModuleFederationPlugin({
       name: 'container',
       remotes: {
-        marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
+        marketing: `marketing@${process.env.PROD_DOMAIN}/marketing/latest/remoteEntry.js`,
       },
       shared: packageJson.dependencies,
     }),
   ],
 }
+
+console.log('PROC', process.env)
 
 module.exports = merge(commonConfig, prodConfig)
