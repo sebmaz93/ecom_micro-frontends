@@ -28,7 +28,7 @@ jobs:
       - name: Deploy
         uses: google-github-actions/upload-cloud-storage@main
         with:
-          path: dist
+          path: /dist
           destination: ${{ secrets.GCS_BUCKET }}
 #      - uses: chrislennon/action-aws-cli@v1.1
 #      - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
