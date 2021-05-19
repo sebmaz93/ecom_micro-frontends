@@ -35,6 +35,9 @@ jobs:
       - name: Build
         run: npm build
 
+      - name: list folders
+        run: "ls"
+
       - name: Setup - GCP
         uses: google-github-actions/setup-gcloud@master
         with:
