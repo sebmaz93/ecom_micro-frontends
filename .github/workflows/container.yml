@@ -16,6 +16,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
       - run: npm install
       - run: npm run build
 
@@ -23,7 +36,10 @@ jobs:
         uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GCS_SA_KEY }}
-          export_default_credentials: true
+          export_default_credentials: tru
+
+      - name: List
+        run: "ls"
 
       - name: Deploy
         uses: google-github-actions/upload-cloud-storage@main
