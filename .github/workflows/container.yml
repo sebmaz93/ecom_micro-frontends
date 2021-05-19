@@ -17,12 +17,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: list folders
+        run: "ls"
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
         with:
-          path: ~/.npm
+          path: "**/node_modules"
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -33,7 +36,7 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm build
+        run: npm run build
 
       - name: list folders
         run: "ls"
