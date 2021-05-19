@@ -42,7 +42,4 @@ jobs:
         run: "ls"
 
       - name: Deploy
-        uses: google-github-actions/upload-cloud-storage@main
-        with:
-          path: ./dist
-          destination: ${{ secrets.GCS_BUCKET }}
+        run: gsutil cp dist gs://${{ secrets.GCS_BUCKET }}/
