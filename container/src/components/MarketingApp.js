@@ -8,5 +8,10 @@ export default function MarketingApp() {
     mount(ref.current)
   }, [])
 
-  return <div ref={ref} />
+  return (
+    <>
+      <h1>Container</h1>
+      <div ref={ref} />
+    </>
+  )
 }
