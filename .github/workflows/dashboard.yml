@@ -1,0 +1,54 @@
+name: deploy-dashboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dashboard/**'
+
+defaults:
+  run:
+    working-directory: dashboard
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: list folders
+        run: "ls"
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: list folders
+        run: "ls"
+
+      - name: Setup - GCP
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCS_SA_KEY }}
+          export_default_credentials: true
+
+#      - name: Clear Storage
+#        run: gsutil rm -r gs://${{ secrets.GCS_BUCKET }}/marketing
+
+      - name: Deploy
+        run: gsutil -m rsync -d -r dist gs://${{ secrets.GCS_BUCKET }}/dashboard/latest
