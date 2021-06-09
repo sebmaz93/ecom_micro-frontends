@@ -3,9 +3,6 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const commonConfig = require('./webpack.common')
 const packageJson = require('../package.json')
 
-// const domain = process.env.PROD_DOMAIN
-// const domain = 'https://storage.googleapis.com/ecomm-mfe'
-
 const prodConfig = {
   mode: 'production',
   output: {
